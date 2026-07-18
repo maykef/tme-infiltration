@@ -21,6 +21,7 @@ from utils import REPO
 SYNONYMS = {
     "cd3e": "cd3",            # Jackson CD3e  == Moldoveanu CD3
     "histone.h3": "h3",       # Moldoveanu Histone.H3 == Jackson H3 (total histone H3)
+    "b.catenin": "ctnnb",     # Moldoveanu B.Catenin == Jackson CTNNB (beta-catenin)
 }
 
 

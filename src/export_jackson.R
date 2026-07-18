@@ -16,8 +16,10 @@ logf <- file.path(repo, "results", "jackson_schema.log")
 log <- function(...) cat(..., "\n", file = logf, append = TRUE)
 cat("Jackson/Fischer 2020 export —", format(Sys.time()), "\n", file = logf)
 
-log("Loading JacksonFischer_2020_BreastCancer(data_type='sce') ...")
-sce <- JacksonFischer_2020_BreastCancer(data_type = "sce")
+log("Loading JacksonFischer_2020_BreastCancer(data_type='sce', full_dataset=TRUE) ...")
+# full_dataset=TRUE returns BOTH the Basel and Zurich cohorts (the default FALSE silently
+# returns only the ~100-image Basel subset). See docs/CORRECTIONS.md.
+sce <- JacksonFischer_2020_BreastCancer(data_type = "sce", full_dataset = TRUE)
 
 log("class:", class(sce))
 log("dim (markers x cells):", paste(dim(sce), collapse = " x "))

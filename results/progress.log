@@ -1407,3 +1407,71 @@ curl exit=0 size=44M
 [2026-07-18 13:20:32] STAGE 6 COMPLETE — 13.1s, 16 slides -> /mnt/nvme8tb/tme-infiltration/results/counterfactuals
 [2026-07-18 13:25:20] STAGE 7 COMPLETE — RESULTS.md, run_all.sh, make_results.py written; pipeline done
 [2026-07-18 13:34:51] CORRECTION 1 — marker overlap check
+[2026-07-18 13:37:59] CORRECTION 2 — full-dataset Jackson export (full_dataset=TRUE) START
+[2026-07-18 13:42:14] CORRECTION 2 — full Jackson: 723 images, 1,240,267 cells; rebuilding graphs
+[2026-07-18 13:46:23] CORRECTION 2 — re-ran overlap (Jackson now 36 markers)
+[2026-07-18 13:46:23] CORRECTION 2 — pretraining on full Jackson (723 graphs) START
+[2026-07-18 13:46:24] STAGE 4 START — pretraining on Jackson (device=cuda)
+[2026-07-18 13:46:25]   723 graphs, 36 markers; train=615 val=108
+[2026-07-18 13:46:29]   epoch   1  train_mse=0.5816  val_mse=0.4000  best=0.4000@1
+[2026-07-18 13:46:41]   epoch   5  train_mse=0.2992  val_mse=0.2596  best=0.2596@5
+[2026-07-18 13:46:57]   epoch  10  train_mse=0.2608  val_mse=0.2322  best=0.2322@10
+[2026-07-18 13:47:13]   epoch  15  train_mse=0.2435  val_mse=0.2198  best=0.2173@13
+[2026-07-18 13:47:29]   epoch  20  train_mse=0.2364  val_mse=0.2032  best=0.2032@20
+[2026-07-18 13:47:45]   epoch  25  train_mse=0.2290  val_mse=0.2130  best=0.1990@22
+[2026-07-18 13:48:01]   epoch  30  train_mse=0.2250  val_mse=0.2028  best=0.1918@29
+[2026-07-18 13:48:17]   epoch  35  train_mse=0.2220  val_mse=0.1943  best=0.1918@29
+[2026-07-18 13:48:33]   epoch  40  train_mse=0.2205  val_mse=0.2027  best=0.1904@37
+[2026-07-18 13:48:49]   epoch  45  train_mse=0.2165  val_mse=0.1942  best=0.1904@37
+[2026-07-18 13:49:05]   epoch  50  train_mse=0.2124  val_mse=0.1847  best=0.1840@49
+[2026-07-18 13:49:22]   epoch  55  train_mse=0.2115  val_mse=0.1947  best=0.1840@49
+[2026-07-18 13:49:38]   epoch  60  train_mse=0.2091  val_mse=0.1865  best=0.1840@49
+[2026-07-18 13:49:54]   epoch  65  train_mse=0.2083  val_mse=0.1846  best=0.1815@63
+[2026-07-18 13:50:10]   epoch  70  train_mse=0.2083  val_mse=0.1911  best=0.1815@63
+[2026-07-18 13:50:26]   epoch  75  train_mse=0.2070  val_mse=0.1886  best=0.1815@63
+[2026-07-18 13:50:42]   epoch  80  train_mse=0.2064  val_mse=0.1793  best=0.1793@80
+[2026-07-18 13:50:58]   epoch  85  train_mse=0.2051  val_mse=0.1892  best=0.1793@80
+[2026-07-18 13:51:14]   epoch  90  train_mse=0.2001  val_mse=0.1833  best=0.1793@80
+[2026-07-18 13:51:30]   epoch  95  train_mse=0.2002  val_mse=0.2033  best=0.1754@93
+[2026-07-18 13:51:46]   epoch 100  train_mse=0.2022  val_mse=0.1842  best=0.1754@93
+[2026-07-18 13:52:03]   epoch 105  train_mse=0.2018  val_mse=0.1810  best=0.1754@93
+[2026-07-18 13:52:12]   early stop at epoch 108 (no val improvement for 15)
+[2026-07-18 13:52:12] STAGE 4 COMPLETE — best val_mse=0.1754@epoch93, 347.7s, saved /mnt/nvme8tb/tme-infiltration/checkpoints/pretrained_encoder.pt
+[2026-07-18 13:55:08] CORRECTION — LOPO eval (full-corpus encoder): primary
+[2026-07-18 13:55:10] STAGE 5 START — LOPO fine-tune + baseline (device=cuda)
+[2026-07-18 13:55:10]   30 slides, responders=14 non-responders=16
+[2026-07-18 13:55:11]   Giuliani cross-PCF(macro.mono~Tc.ae, r=10.5um) AUROC=0.833 [0.660, 0.964]
+[2026-07-18 13:55:11]   loaded pretrained trunk (val_mse=0.1754)
+[2026-07-18 13:56:05]   LOPO fold 5/30 done (held out 06RD)
+[2026-07-18 13:56:58]   LOPO fold 10/30 done (held out 13RD)
+[2026-07-18 13:57:51]   LOPO fold 15/30 done (held out 22RD)
+[2026-07-18 13:58:44]   LOPO fold 20/30 done (held out 29RD)
+[2026-07-18 13:59:36]   LOPO fold 25/30 done (held out 35RD)
+[2026-07-18 14:00:29]   LOPO fold 30/30 done (held out 42RD)
+[2026-07-18 14:00:30]   ==============================================================
+[2026-07-18 14:00:30]   GNN (LOPO)          AUROC = 0.576  95% CI [0.360, 0.789]
+[2026-07-18 14:00:30]   Giuliani baseline   AUROC = 0.833  95% CI [0.660, 0.964]
+[2026-07-18 14:00:30]   --> GNN does NOT beat baseline
+[2026-07-18 14:00:30]   ==============================================================
+[2026-07-18 14:00:30] STAGE 5 COMPLETE — 320.5s, wrote results/eval_results.json
+[2026-07-18 14:00:31] CORRECTION — LOPO eval: frozen trunk
+[2026-07-18 14:00:33] STAGE 5 START — LOPO fine-tune + baseline (device=cuda)
+[2026-07-18 14:00:33]   30 slides, responders=14 non-responders=16
+[2026-07-18 14:00:34]   Giuliani cross-PCF(macro.mono~Tc.ae, r=10.5um) AUROC=0.833 [0.660, 0.964]
+[2026-07-18 14:00:34]   loaded pretrained trunk (val_mse=0.1754)
+[2026-07-18 14:01:26]   LOPO fold 5/30 done (held out 06RD)
+[2026-07-18 14:02:17]   LOPO fold 10/30 done (held out 13RD)
+[2026-07-18 14:03:08]   LOPO fold 15/30 done (held out 22RD)
+[2026-07-18 14:03:59]   LOPO fold 20/30 done (held out 29RD)
+[2026-07-18 14:04:50]   LOPO fold 25/30 done (held out 35RD)
+[2026-07-18 14:05:41]   LOPO fold 30/30 done (held out 42RD)
+[2026-07-18 14:05:42]   ==============================================================
+[2026-07-18 14:05:42]   GNN (LOPO)          AUROC = 0.567  95% CI [0.348, 0.796]
+[2026-07-18 14:05:42]   Giuliani baseline   AUROC = 0.833  95% CI [0.660, 0.964]
+[2026-07-18 14:05:42]   --> GNN does NOT beat baseline
+[2026-07-18 14:05:42]   ==============================================================
+[2026-07-18 14:05:42] STAGE 5 COMPLETE — 309.4s, wrote results/eval_results_frozen.json
+[2026-07-18 14:05:43] CORRECTION — LOPO eval: no pretrain
+[2026-07-18 14:05:45] STAGE 5 START — LOPO fine-tune + baseline (device=cuda)
+[2026-07-18 14:05:45]   30 slides, responders=14 non-responders=16
+[2026-07-18 14:05:46]   Giuliani cross-PCF(macro.mono~Tc.ae, r=10.5um) AUROC=0.833 [0.660, 0.964]
