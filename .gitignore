@@ -30,3 +30,8 @@ Thumbs.db
 
 # Local agent memory — machine-specific, not shared (see Stage 0d)
 CLAUDE.local.md
+
+# local build/run artifacts (regenerable)
+results/*.out
+results/.env_build_done
+.claude/settings.local.json
