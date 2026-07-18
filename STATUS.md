@@ -1,12 +1,13 @@
 # STATUS — tme-infiltration
 
-**Updated:** 2026-07-18 11:30 · **Current stage:** Stage 3 (graph construction)
+**Updated:** 2026-07-18 13:25 · **Current stage:** ✅ COMPLETE (all stages done)
 
 ## Headline numbers
 | Metric | Value |
 |---|---|
-| GNN AUROC (LOPO, Moldoveanu) | _pending_ |
-| Giuliani pair-correlation baseline AUROC | _pending_ |
+| **GNN AUROC (LOPO, Moldoveanu)** | **0.460** [0.253, 0.679] |
+| **Giuliani pair-correlation baseline AUROC** | **0.833** [0.660, 0.964] |
+| Verdict | GNN does **not** beat the hand-crafted spatial statistic (reported plainly) |
 
 ## Stage status
 | Stage | Status |
@@ -14,22 +15,23 @@
 | 0a — system/env audit | ✅ done |
 | 0c — repo setup | ✅ done |
 | 0b — env build | ✅ done — torch 2.11+cu128 (sm_120 ✓), PyG 2.8, R 4.5+Bioc |
-| 1a — Jackson/Fischer export | ✅ done — 45ch × 285,851 cells × 100 images → parquet (used `exprs` arcsinh assay) |
-| 1b — Moldoveanu download/extract | ✅ done — md5 ✓; both open items resolved (labels + no igraph needed) |
+| 1a — Jackson/Fischer export | ✅ done — 100 slides × 285,851 cells → parquet |
+| 1b — Moldoveanu download/extract | ✅ done — md5 ✓; both open items resolved |
 | 2 — schema discovery doc | ✅ done — `docs/data_schema.md` |
-| 3 — graph construction | ⏳ in progress |
-| 4 — SSL pretraining | ⬜ not started |
-| 5 — LOPO fine-tune + baseline | ⬜ not started |
-| 6 — counterfactual search | ⬜ not started |
-| 7 — reproducibility + RESULTS.md | ⬜ not started |
+| 3 — graph construction | ✅ done — 100 jackson (33mk) + 30 moldoveanu (35mk) graphs, k=12 |
+| 4 — SSL pretraining | ✅ done — val masked-MSE 0.58→0.23, 76 s, encoder saved |
+| 5 — LOPO fine-tune + baseline | ✅ done — GNN 0.460 vs baseline 0.833 (+2 transparent ablations) |
+| 6 — counterfactual search | ✅ done — 16 non-responder slides, CSV+PNG+top findings |
+| 7 — reproducibility + RESULTS.md | ✅ done — RESULTS.md, run_all.sh, run_log.jsonl |
 
-## Key resolved facts
-- **Moldoveanu N=30** ICI tumor samples with `Response` label (`ST1_sample_info.txt`): **14 responders / 16 non-responders**. Each sample = one patient = one slide.
-- **No igraph 1.2.5 needed:** published per-cell types ship as `ST4_cell_data.txt`; joined by `Cell_ID` (macro.mono + Tc.ae available for the Giuliani baseline).
-- **Panels differ:** Jackson 36 markers vs Moldoveanu 35 → shared GATv2 trunk + per-dataset input stem; z-score within each dataset separately.
+## Key findings
+- **The GNN does not beat the Giuliani baseline** at N=30. All 3 GNN configs (finetune 0.460, frozen 0.406, no-pretrain 0.545) sit near chance with 0.5-crossing CIs. Pretraining did not help — breast→melanoma transfer was ineffective (a clean negative result).
+- Baseline (macrophage ↔ activated-CD8 co-localization @10.5 µm) is a strong single feature (0.833).
+- Counterfactuals most often point to TIM3 / CD45RA / CCR7 increases on melanoma & macrophage cells to raise predicted response (interpret cautiously given near-chance GNN).
 
 ## Open items needing human input
 _None._
 
 ## Notes
-- Full detail: `results/progress.log`; original plan: `docs/BUILD_SPEC.md`; contract: `docs/data_schema.md`.
+- Full detail: `results/progress.log` + `results/run_log.jsonl`; contract: `docs/data_schema.md`;
+  headline: `RESULTS.md`. Reproduce: `bash scripts/build_env.sh` then `bash run_all.sh`.
