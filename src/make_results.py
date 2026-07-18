@@ -55,6 +55,24 @@ def main():
 
     n_jackson = len(glob.glob(os.path.join(REPO, "data", "processed", "jackson", "*.pt")))
     n_mold = len(glob.glob(os.path.join(REPO, "data", "processed", "moldoveanu", "*.pt")))
+    try:
+        n_jmarkers = len(open(os.path.join(REPO, "data", "processed", "jackson",
+                                           "_markers.txt")).read().split())
+    except Exception:
+        n_jmarkers = "?"
+    # pull shared-count / Jaccard from docs/marker_overlap.md
+    ov_shared, ov_jac = "?", "?"
+    try:
+        ovtxt = open(os.path.join(REPO, "docs", "marker_overlap.md")).read()
+        import re as _re
+        m1 = _re.search(r"Synonym-normalized shared:\s*\*\*(\d+)\*\*", ovtxt)
+        m2 = _re.search(r"Jaccard[^:]*:\s*([\d.]+)%", ovtxt)
+        if m1:
+            ov_shared = m1.group(1)
+        if m2:
+            ov_jac = m2.group(1)
+    except Exception:
+        pass
 
     # latest pretrain / finetune / counterfactual timings
     pre = [r for r in times.get("pretrain", []) if r["epochs_ran"] > 5]
@@ -94,14 +112,14 @@ def main():
     A(f"|---|---|---|")
     A(f"| Jackson pretrain slides | {old_jmeta.get('n_images','?')} | **{jmeta.get('n_images','?')}** |")
     A(f"| Jackson cells | {num(old_jmeta.get('n_cells'))} | **{num(jmeta.get('n_cells'))}** |")
-    A(f"| Jackson markers used | 33 | 33 |")
+    A(f"| Jackson markers used | 33 | **{n_jmarkers}** |")
     A(f"| Moldoveanu slides (eval) | 30 | 30 |")
     A("")
     A(f"- **Moldoveanu (unchanged):** {n_mold} slides = 30 patients, **{n_resp} responders / "
       f"{n_non} non-responders**, 35 markers, 112,497 cells. Evaluation = leave-one-patient-out.")
-    A(f"- **Marker panel overlap (Jackson∩Moldoveanu): only 7 shared proteins, 11.5% Jaccard** "
-      f"(`docs/marker_overlap.md`) — low semantic overlap, a structural reason to expect weak "
-      f"cross-panel transfer regardless of pretraining corpus size.\n")
+    A(f"- **Marker panel overlap (Jackson∩Moldoveanu): only {ov_shared} shared proteins, "
+      f"{ov_jac}% Jaccard** (`docs/marker_overlap.md`) — low semantic overlap, a structural "
+      f"reason to expect weak cross-panel transfer regardless of pretraining corpus size.\n")
 
     A("## 2. Headline — GNN vs. Giuliani baseline (both runs)\n")
     A("| Model | Original (Basel, 100 img) AUROC [95% CI] | Corrected (full) AUROC [95% CI] |")

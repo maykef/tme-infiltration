@@ -1475,3 +1475,27 @@ curl exit=0 size=44M
 [2026-07-18 14:05:45] STAGE 5 START — LOPO fine-tune + baseline (device=cuda)
 [2026-07-18 14:05:45]   30 slides, responders=14 non-responders=16
 [2026-07-18 14:05:46]   Giuliani cross-PCF(macro.mono~Tc.ae, r=10.5um) AUROC=0.833 [0.660, 0.964]
+[2026-07-18 14:06:39]   LOPO fold 5/30 done (held out 06RD)
+[2026-07-18 14:07:31]   LOPO fold 10/30 done (held out 13RD)
+[2026-07-18 14:08:24]   LOPO fold 15/30 done (held out 22RD)
+[2026-07-18 14:09:16]   LOPO fold 20/30 done (held out 29RD)
+[2026-07-18 14:10:08]   LOPO fold 25/30 done (held out 35RD)
+[2026-07-18 14:11:00]   LOPO fold 30/30 done (held out 42RD)
+[2026-07-18 14:11:02]   ==============================================================
+[2026-07-18 14:11:02]   GNN (LOPO)          AUROC = 0.545  95% CI [0.330, 0.760]
+[2026-07-18 14:11:02]   Giuliani baseline   AUROC = 0.833  95% CI [0.660, 0.964]
+[2026-07-18 14:11:02]   --> GNN does NOT beat baseline
+[2026-07-18 14:11:02]   ==============================================================
+[2026-07-18 14:11:02] STAGE 5 COMPLETE — 316.8s, wrote results/eval_results_nopretrain.json
+[2026-07-18 14:11:02] CORRECTION — all 3 LOPO runs done
+[2026-07-18 14:23:02] CORRECTION — refresh counterfactual on corrected model (gated)
+[2026-07-18 14:23:04] STAGE 6 START — counterfactual gradient search (device=cuda)
+[2026-07-18 14:23:15]   trained final model on all 30 slides
+[2026-07-18 14:23:15]   computing counterfactuals for 16 slides (nonresponders)
+[2026-07-18 14:23:17]   finding 1: In non-responder slide 22RD (model P(response)=0.001), the most influential cells are Tc.ae cells, and the counterfactual gradient most often points to 'CCR7 (increase)' (6/25 of the top cells) as the marker shift that would most raise predicted response.
+[2026-07-18 14:23:17]   finding 2: In non-responder slide 31RD (model P(response)=0.0), the most influential cells are Th.ae cells, and the counterfactual gradient most often points to 'CCR7 (increase)' (9/25 of the top cells) as the marker shift that would most raise predicted response.
+[2026-07-18 14:23:17]   finding 3: In non-responder slide 35RD (model P(response)=0.001), the most influential cells are melano cells, and the counterfactual gradient most often points to 'CCR7 (increase)' (21/25 of the top cells) as the marker shift that would most raise predicted response.
+[2026-07-18 14:23:17]   finding 4: In non-responder slide 01RD (model P(response)=0.0), the most influential cells are macro.mono cells, and the counterfactual gradient most often points to 'CCR7 (increase)' (24/25 of the top cells) as the marker shift that would most raise predicted response.
+[2026-07-18 14:23:17]   finding 5: In non-responder slide 19BL (model P(response)=0.001), the most influential cells are melano cells, and the counterfactual gradient most often points to 'CCR7 (increase)' (23/25 of the top cells) as the marker shift that would most raise predicted response.
+[2026-07-18 14:23:17] STAGE 6 COMPLETE — 13.2s, 16 slides -> /mnt/nvme8tb/tme-infiltration/results/counterfactuals
+[2026-07-18 14:49:58] CORRECTION COMPLETE — corrected GNN 0.576 [0.360,0.789] vs baseline 0.833; negative result holds; counterfactuals gated

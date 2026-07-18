@@ -1,37 +1,39 @@
 # STATUS — tme-infiltration
 
-**Updated:** 2026-07-18 13:25 · **Current stage:** ✅ COMPLETE (all stages done)
+**Updated:** 2026-07-18 14:25 · **Current stage:** ✅ COMPLETE + correction pass done
 
-## Headline numbers
+## Headline numbers (corrected, full-dataset run)
 | Metric | Value |
 |---|---|
-| **GNN AUROC (LOPO, Moldoveanu)** | **0.460** [0.253, 0.679] |
+| **GNN AUROC (LOPO, pretrained+finetune)** | **0.576** [0.360, 0.789] |
 | **Giuliani pair-correlation baseline AUROC** | **0.833** [0.660, 0.964] |
-| Verdict | GNN does **not** beat the hand-crafted spatial statistic (reported plainly) |
+| Verdict | GNN still does **not** beat the baseline (CI crosses 0.5, overlaps baseline) |
 
-## Stage status
-| Stage | Status |
+Original 100-image run: GNN 0.460 [0.253, 0.679] — see `RESULTS.md` for the side-by-side.
+
+## Correction pass (2026-07-18)
+| Item | Status |
 |---|---|
-| 0a — system/env audit | ✅ done |
-| 0c — repo setup | ✅ done |
-| 0b — env build | ✅ done — torch 2.11+cu128 (sm_120 ✓), PyG 2.8, R 4.5+Bioc |
-| 1a — Jackson/Fischer export | ✅ done — 100 slides × 285,851 cells → parquet |
-| 1b — Moldoveanu download/extract | ✅ done — md5 ✓; both open items resolved |
-| 2 — schema discovery doc | ✅ done — `docs/data_schema.md` |
-| 3 — graph construction | ✅ done — 100 jackson (33mk) + 30 moldoveanu (35mk) graphs, k=12 |
-| 4 — SSL pretraining | ✅ done — val masked-MSE 0.58→0.23, 76 s, encoder saved |
-| 5 — LOPO fine-tune + baseline | ✅ done — GNN 0.460 vs baseline 0.833 (+2 transparent ablations) |
-| 6 — counterfactual search | ✅ done — 16 non-responder slides, CSV+PNG+top findings |
-| 7 — reproducibility + RESULTS.md | ✅ done — RESULTS.md, run_all.sh, run_log.jsonl |
+| 1 — marker overlap check | ✅ `docs/marker_overlap.md`: 8 shared, **12.7% Jaccard** (LOW) |
+| 2 — full-dataset Jackson (`full_dataset=TRUE`) | ✅ 723 images / 1,240,267 cells (was 100 / 285,851); re-pretrain val-MSE 0.228→0.175; re-ran Stages 3–5 |
+| 3 — bootstrap CIs on all 3 ablations | ✅ all CIs overlap → pretrain/frozen/no-pretrain **not distinguishable** (within noise) |
+| Report — side-by-side + `docs/CORRECTIONS.md` | ✅ RESULTS.md shows both runs; counterfactuals **gated** (NOT biological findings) |
 
-## Key findings
-- **The GNN does not beat the Giuliani baseline** at N=30. All 3 GNN configs (finetune 0.460, frozen 0.406, no-pretrain 0.545) sit near chance with 0.5-crossing CIs. Pretraining did not help — breast→melanoma transfer was ineffective (a clean negative result).
-- Baseline (macrophage ↔ activated-CD8 co-localization @10.5 µm) is a strong single feature (0.833).
-- Counterfactuals most often point to TIM3 / CD45RA / CCR7 increases on melanoma & macrophage cells to raise predicted response (interpret cautiously given near-chance GNN).
+## Corrected ablations (full run)
+| Config | AUROC [95% CI] |
+|---|---|
+| Pretrained + finetune | 0.576 [0.360, 0.789] |
+| Frozen trunk | 0.567 [0.348, 0.796] |
+| No pretraining | 0.545 [0.330, 0.760] |
+
+## Key conclusions (trustworthy after correction)
+- **The negative result holds:** even with 4.3× the pretraining corpus, the GNN (0.576) does not beat the hand-crafted baseline (0.833).
+- The earlier "pretraining hurts" impression was a **truncation artifact**; with full data pretraining gives a small bump but it is **within bootstrap noise** — no directional claim supported.
+- **Marker panels barely overlap (12.7%)** — a structural reason weak transfer was expected.
+- Counterfactual findings remain **gated**; not to be cited as biology until a model beats the baseline.
+
+## Original 7-stage pipeline
+All stages 0–7 done (see git history stage0…stage7). Reproduce: `bash scripts/build_env.sh` then `bash run_all.sh`.
 
 ## Open items needing human input
 _None._
-
-## Notes
-- Full detail: `results/progress.log` + `results/run_log.jsonl`; contract: `docs/data_schema.md`;
-  headline: `RESULTS.md`. Reproduce: `bash scripts/build_env.sh` then `bash run_all.sh`.

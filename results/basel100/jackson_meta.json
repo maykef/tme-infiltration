@@ -1,0 +1,11 @@
+{
+  "image_id_col": "image_name",
+  "cell_id_col": "cell_id",
+  "x_col": "cell_x",
+  "y_col": "cell_y",
+  "transform": "used pre-existing assay 'exprs' (assumed arcsinh/transformed)",
+  "n_markers": 45,
+  "n_images": 100,
+  "n_cells": 285851,
+  "markers": ["Ru96", "Ru98", "Ru99", "Ru100", "Ru101", "Ru102", "Ru104", "H3", "H3K27me3", "KRT5", "FN1", "KRT19", "KRT8_18", "TWIST1", "CD68", "KRT14", "SMA", "VIM", "c_Myc", "HER2", "CD3e", "p_H3", "SNAI2", "ERa", "PGR", "p53", "CD44", "EpCAM", "CD45", "GATA3", "CD20", "CTNNB", "CA9", "CDH1", "Ki67", "EGFR", "p_S6", "SOX9", "vWF", "p_mTOR", "KRT7", "PanCK", "cPARP_cCASP3", "DNA1", "DNA2"]
+}
