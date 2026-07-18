@@ -1342,3 +1342,23 @@ curl exit=0 size=44M
 [2026-07-18 12:17:04]   epoch  70  train_mse=0.2984  val_mse=0.2347  best=0.2283@55
 [2026-07-18 12:17:04]   early stop at epoch 70 (no val improvement for 15)
 [2026-07-18 12:17:04] STAGE 4 COMPLETE — best val_mse=0.2283@epoch55, 76.4s, saved /mnt/nvme8tb/tme-infiltration/checkpoints/pretrained_encoder.pt
+[2026-07-18 12:36:05] STAGE 5 START — LOPO fine-tune + baseline (device=cuda)
+[2026-07-18 12:36:05]   30 slides, responders=14 non-responders=16
+[2026-07-18 12:36:06]   Giuliani cross-PCF(macro.mono~Tc.ae, r=10.5um) AUROC=0.833 [0.660, 0.964]
+[2026-07-18 12:36:06]   loaded pretrained trunk (val_mse=0.2283)
+[2026-07-18 12:50:35] STAGE 5 START — LOPO fine-tune + baseline (device=cuda)
+[2026-07-18 12:50:35]   30 slides, responders=14 non-responders=16
+[2026-07-18 12:50:37]   Giuliani cross-PCF(macro.mono~Tc.ae, r=10.5um) AUROC=0.833 [0.660, 0.964]
+[2026-07-18 12:50:37]   loaded pretrained trunk (val_mse=0.2283)
+[2026-07-18 12:51:31]   LOPO fold 5/30 done (held out 06RD)
+[2026-07-18 12:52:24]   LOPO fold 10/30 done (held out 13RD)
+[2026-07-18 12:53:17]   LOPO fold 15/30 done (held out 22RD)
+[2026-07-18 12:54:10]   LOPO fold 20/30 done (held out 29RD)
+[2026-07-18 12:55:03]   LOPO fold 25/30 done (held out 35RD)
+[2026-07-18 12:55:56]   LOPO fold 30/30 done (held out 42RD)
+[2026-07-18 12:55:57]   ==============================================================
+[2026-07-18 12:55:57]   GNN (LOPO)          AUROC = 0.460  95% CI [0.253, 0.679]
+[2026-07-18 12:55:57]   Giuliani baseline   AUROC = 0.833  95% CI [0.660, 0.964]
+[2026-07-18 12:55:57]   --> GNN does NOT beat baseline
+[2026-07-18 12:55:57]   ==============================================================
+[2026-07-18 12:55:57] STAGE 5 COMPLETE — 321.7s, wrote results/eval_results.json
