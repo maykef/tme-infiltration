@@ -1,0 +1,13 @@
+{
+  "point_diff": 0.2566964285714286,
+  "ci": [
+    0.029017857142857203,
+    0.49326661220043533
+  ],
+  "excludes_zero": true,
+  "frac_favouring_baseline": 0.9875,
+  "n_effective": 2000,
+  "source": "full-Jackson corrected run (retroactive)",
+  "gnn_auc": 0.5758928571428571,
+  "baseline_auc": 0.8325892857142857
+}

@@ -1,15 +1,26 @@
 # STATUS — tme-infiltration
 
-**Updated:** 2026-07-18 14:25 · **Current stage:** ✅ COMPLETE + correction pass done
+**Updated:** 2026-07-18 15:10 · **Current stage:** ✅ COMPLETE + correction pass + panel-match test done
 
 ## Headline numbers (corrected, full-dataset run)
 | Metric | Value |
 |---|---|
 | **GNN AUROC (LOPO, pretrained+finetune)** | **0.576** [0.360, 0.789] |
 | **Giuliani pair-correlation baseline AUROC** | **0.833** [0.660, 0.964] |
-| Verdict | GNN still does **not** beat the baseline (CI crosses 0.5, overlaps baseline) |
+| **Paired test (baseline − GNN)** | **+0.257 [+0.029, +0.493] → baseline significantly wins** |
+| Verdict | GNN does **not** beat the baseline; paired test confirms baseline wins significantly |
 
 Original 100-image run: GNN 0.460 [0.253, 0.679] — see `RESULTS.md` for the side-by-side.
+
+## Panel-matched pretraining test (2026-07-18, Part 1 go/no-go)
+| Candidate | Jaccard vs Moldoveanu | Checkpoints (of 4) | Clears bar? |
+|---|---|---|---|
+| IMMUcan_2022_CancerExample | 37.7% | 2/4 | ❌ (< 40%) |
+| HochSchulz_2022_Melanoma | 19.4% | 1/4 | ❌ |
+
+**NO-GO — stopped at Part 1** (pre-registered bar: Jaccard ≥40% AND ≥2/4 checkpoints). No
+public IMC panel-matched source clears it → panel mismatch ruled out as a *fixable* confound.
+Part 2 (retrain on new corpus) not started, per the gate. `docs/panel_matched_candidates.md`.
 
 ## Correction pass (2026-07-18)
 | Item | Status |

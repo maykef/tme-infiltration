@@ -179,7 +179,53 @@ def main():
         A("\n</details>")
     A("")
 
-    A("## 6. Reproduce\n")
+    # ---- Panel-matched pretraining test (Part 1 go/no-go) ----
+    pmc = os.path.join(REPO, "docs", "panel_matched_candidates.md")
+    if os.path.exists(pmc):
+        import re as _re2
+        txt = open(pmc).read()
+        rows = _re2.findall(r"^\| \d+ \| .*$", txt, _re2.M)
+        go = "GO" if _re2.search(r"\*\*GO\.", txt) else "NO-GO"
+        A("## 6. Panel-matched pretraining test (gated — Part 1 result)\n")
+        A("The 12.7% Jackson↔Moldoveanu marker overlap raised the question of whether the "
+          "negative transfer is just panel mismatch. Part 1 checked, against the live "
+          "`imcdatasets` catalogue, whether any panel-compatible source clears a pre-registered "
+          "bar (Jaccard ≥ 40% **and** ≥ 2/4 of PD1/LAG3/TIM3/granzyme shared) before spending a "
+          "training run. Full detail: `docs/panel_matched_candidates.md`.\n")
+        A("| Rank | Dataset | Jaccard vs Moldoveanu | Checkpoints in both | Clears bar? |")
+        A("|---|---|---|---|---|")
+        for r in rows:
+            parts = [c.strip() for c in r.strip().strip("|").split("|")]
+            # parts: rank, dataset, jaccard, shared, checkpoints, clears
+            A(f"| {parts[0]} | {parts[1]} | {parts[2]} | {parts[4]} | {parts[5]} |")
+        A("")
+        A(f"**Verdict: {go} — stopped at Part 1.** No available panel-matched source cleared "
+          "the bar: the only true melanoma cohort (`HochSchulz_2022_Melanoma`) overlaps at just "
+          "19.4% (chemokine/mRNA-heavy panel), and the checkpoint-rich "
+          "`IMMUcan_2022_CancerExample` reaches only 37.7% — a real improvement over 11.5% but "
+          "below the 40% bar, and it is a small demo subset (14 images, mixed primary tumor, "
+          "not melanoma), a poor corpus regardless. **This rules out panel mismatch as a "
+          "*fixable* confound within available public IMC data.** Combined with §2, the earned "
+          "conclusion stands: for this task and this N, the hand-crafted spatial statistic is a "
+          "hard bar for a learned model to clear.\n")
+        pd_path = os.path.join(REPO, "results", "paired_diff.json")
+        if os.path.exists(pd_path):
+            pdr = json.load(open(pd_path))
+            sig = ("**excludes zero → the baseline significantly outperforms the GNN**"
+                   if pdr["excludes_zero"] else
+                   "includes zero → not significant")
+            A("### Paired-difference significance test (retroactive, full-Jackson)\n")
+            A("The paired test requested last round, applied to the existing full-Jackson "
+              "result (same resampled patient indices for both models each iteration; no "
+              "retraining). Its Part-2 application to a panel-matched corpus is gated off by the "
+              "NO-GO above and was not run.\n")
+            A(f"- **(baseline AUROC − GNN AUROC) = {pdr['point_diff']:+.3f}, 95% CI "
+              f"[{pdr['ci'][0]:+.3f}, {pdr['ci'][1]:+.3f}]** — {sig} "
+              f"({100*pdr['frac_favouring_baseline']:.0f}% of resamples favour the baseline).")
+            A("- This is stronger than comparing the two overlapping marginal CIs in §2: on a "
+              "paired basis the hand-crafted statistic beats the GNN significantly.\n")
+
+    A("## 7. Reproduce\n")
     A("```bash\nbash scripts/build_env.sh   # once\nbash run_all.sh            # Stages 1..6 -> this file\n```")
     A("All scripts take `--seed` (default 42); runs logged to `results/run_log.jsonl`. "
       "Contract: `docs/data_schema.md`; corrections: `docs/CORRECTIONS.md`; panel overlap: "

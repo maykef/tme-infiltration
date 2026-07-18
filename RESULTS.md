@@ -59,7 +59,25 @@ The original Stage 1a pull used `JacksonFischer_2020_BreastCancer(data_type="sce
 
 </details>
 
-## 6. Reproduce
+## 6. Panel-matched pretraining test (gated — Part 1 result)
+
+The 12.7% Jackson↔Moldoveanu marker overlap raised the question of whether the negative transfer is just panel mismatch. Part 1 checked, against the live `imcdatasets` catalogue, whether any panel-compatible source clears a pre-registered bar (Jaccard ≥ 40% **and** ≥ 2/4 of PD1/LAG3/TIM3/granzyme shared) before spending a training run. Full detail: `docs/panel_matched_candidates.md`.
+
+| Rank | Dataset | Jaccard vs Moldoveanu | Checkpoints in both | Clears bar? |
+|---|---|---|---|---|
+| 1 | `IMMUcan_2022_CancerExample` | **37.7%** (20/53) | 2 | ❌ |
+| 2 | `HochSchulz_2022_Melanoma` | **19.4%** (12/62) | 1 | ❌ |
+
+**Verdict: NO-GO — stopped at Part 1.** No available panel-matched source cleared the bar: the only true melanoma cohort (`HochSchulz_2022_Melanoma`) overlaps at just 19.4% (chemokine/mRNA-heavy panel), and the checkpoint-rich `IMMUcan_2022_CancerExample` reaches only 37.7% — a real improvement over 11.5% but below the 40% bar, and it is a small demo subset (14 images, mixed primary tumor, not melanoma), a poor corpus regardless. **This rules out panel mismatch as a *fixable* confound within available public IMC data.** Combined with §2, the earned conclusion stands: for this task and this N, the hand-crafted spatial statistic is a hard bar for a learned model to clear.
+
+### Paired-difference significance test (retroactive, full-Jackson)
+
+The paired test requested last round, applied to the existing full-Jackson result (same resampled patient indices for both models each iteration; no retraining). Its Part-2 application to a panel-matched corpus is gated off by the NO-GO above and was not run.
+
+- **(baseline AUROC − GNN AUROC) = +0.257, 95% CI [+0.029, +0.493]** — **excludes zero → the baseline significantly outperforms the GNN** (99% of resamples favour the baseline).
+- This is stronger than comparing the two overlapping marginal CIs in §2: on a paired basis the hand-crafted statistic beats the GNN significantly.
+
+## 7. Reproduce
 
 ```bash
 bash scripts/build_env.sh   # once

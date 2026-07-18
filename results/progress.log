@@ -1499,3 +1499,6 @@ curl exit=0 size=44M
 [2026-07-18 14:23:17]   finding 5: In non-responder slide 19BL (model P(response)=0.001), the most influential cells are melano cells, and the counterfactual gradient most often points to 'CCR7 (increase)' (23/25 of the top cells) as the marker shift that would most raise predicted response.
 [2026-07-18 14:23:17] STAGE 6 COMPLETE — 13.2s, 16 slides -> /mnt/nvme8tb/tme-infiltration/results/counterfactuals
 [2026-07-18 14:49:58] CORRECTION COMPLETE — corrected GNN 0.576 [0.360,0.789] vs baseline 0.833; negative result holds; counterfactuals gated
+[2026-07-18 14:50:53] PANEL-MATCH Part 1 — listing imcdatasets
+[2026-07-18 15:20:35] PANEL-MATCH Part 1 NO-GO; paired-diff test (retroactive, existing data)
+[2026-07-18 15:23:44] PANEL-MATCH COMPLETE — Part 1 NO-GO (best IMMUcan 37.7%<40%); paired test: baseline beats GNN +0.257 [+0.029,+0.493]
