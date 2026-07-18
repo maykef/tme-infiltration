@@ -1362,3 +1362,46 @@ curl exit=0 size=44M
 [2026-07-18 12:55:57]   --> GNN does NOT beat baseline
 [2026-07-18 12:55:57]   ==============================================================
 [2026-07-18 12:55:57] STAGE 5 COMPLETE — 321.7s, wrote results/eval_results.json
+[2026-07-18 13:06:33] STAGE 5 ablation: frozen trunk
+[2026-07-18 13:06:35] STAGE 5 START — LOPO fine-tune + baseline (device=cuda)
+[2026-07-18 13:06:35]   30 slides, responders=14 non-responders=16
+[2026-07-18 13:06:37]   Giuliani cross-PCF(macro.mono~Tc.ae, r=10.5um) AUROC=0.833 [0.660, 0.964]
+[2026-07-18 13:06:37]   loaded pretrained trunk (val_mse=0.2283)
+[2026-07-18 13:07:28]   LOPO fold 5/30 done (held out 06RD)
+[2026-07-18 13:08:18]   LOPO fold 10/30 done (held out 13RD)
+[2026-07-18 13:09:09]   LOPO fold 15/30 done (held out 22RD)
+[2026-07-18 13:09:59]   LOPO fold 20/30 done (held out 29RD)
+[2026-07-18 13:10:49]   LOPO fold 25/30 done (held out 35RD)
+[2026-07-18 13:11:39]   LOPO fold 30/30 done (held out 42RD)
+[2026-07-18 13:11:40]   ==============================================================
+[2026-07-18 13:11:40]   GNN (LOPO)          AUROC = 0.406  95% CI [0.205, 0.625]
+[2026-07-18 13:11:40]   Giuliani baseline   AUROC = 0.833  95% CI [0.660, 0.964]
+[2026-07-18 13:11:40]   --> GNN does NOT beat baseline
+[2026-07-18 13:11:40]   ==============================================================
+[2026-07-18 13:11:40] STAGE 5 COMPLETE — 305.0s, wrote results/eval_results_frozen.json
+[2026-07-18 13:11:41] STAGE 5 ablation: no pretrain
+[2026-07-18 13:11:43] STAGE 5 START — LOPO fine-tune + baseline (device=cuda)
+[2026-07-18 13:11:43]   30 slides, responders=14 non-responders=16
+[2026-07-18 13:11:44]   Giuliani cross-PCF(macro.mono~Tc.ae, r=10.5um) AUROC=0.833 [0.660, 0.964]
+[2026-07-18 13:12:37]   LOPO fold 5/30 done (held out 06RD)
+[2026-07-18 13:13:30]   LOPO fold 10/30 done (held out 13RD)
+[2026-07-18 13:14:22]   LOPO fold 15/30 done (held out 22RD)
+[2026-07-18 13:15:14]   LOPO fold 20/30 done (held out 29RD)
+[2026-07-18 13:16:07]   LOPO fold 25/30 done (held out 35RD)
+[2026-07-18 13:16:59]   LOPO fold 30/30 done (held out 42RD)
+[2026-07-18 13:17:01]   ==============================================================
+[2026-07-18 13:17:01]   GNN (LOPO)          AUROC = 0.545  95% CI [0.330, 0.760]
+[2026-07-18 13:17:01]   Giuliani baseline   AUROC = 0.833  95% CI [0.660, 0.964]
+[2026-07-18 13:17:01]   --> GNN does NOT beat baseline
+[2026-07-18 13:17:01]   ==============================================================
+[2026-07-18 13:17:01] STAGE 5 COMPLETE — 317.8s, wrote results/eval_results_nopretrain.json
+[2026-07-18 13:17:01] STAGE 5 ablations done
+[2026-07-18 13:20:19] STAGE 6 START — counterfactual gradient search (device=cuda)
+[2026-07-18 13:20:30]   trained final model on all 30 slides
+[2026-07-18 13:20:30]   computing counterfactuals for 16 slides (nonresponders)
+[2026-07-18 13:20:32]   finding 1: In non-responder slide 01RD (model P(response)=0.001), the most influential cells are melano cells, and the counterfactual gradient most often points to 'TIM3 (increase)' (9/25 of the top cells) as the marker shift that would most raise predicted response.
+[2026-07-18 13:20:32]   finding 2: In non-responder slide 08BL (model P(response)=0.0), the most influential cells are macro.mono cells, and the counterfactual gradient most often points to 'CD45RA (increase)' (6/25 of the top cells) as the marker shift that would most raise predicted response.
+[2026-07-18 13:20:32]   finding 3: In non-responder slide 35RD (model P(response)=0.001), the most influential cells are melano cells, and the counterfactual gradient most often points to 'CCR7 (increase)' (12/25 of the top cells) as the marker shift that would most raise predicted response.
+[2026-07-18 13:20:32]   finding 4: In non-responder slide 19BL (model P(response)=0.002), the most influential cells are melano cells, and the counterfactual gradient most often points to 'TIM3 (increase)' (13/25 of the top cells) as the marker shift that would most raise predicted response.
+[2026-07-18 13:20:32]   finding 5: In non-responder slide 22RD (model P(response)=0.002), the most influential cells are melano cells, and the counterfactual gradient most often points to 'CD45RA (increase)' (11/25 of the top cells) as the marker shift that would most raise predicted response.
+[2026-07-18 13:20:32] STAGE 6 COMPLETE — 13.1s, 16 slides -> /mnt/nvme8tb/tme-infiltration/results/counterfactuals
