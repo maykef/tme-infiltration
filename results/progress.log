@@ -1406,3 +1406,4 @@ curl exit=0 size=44M
 [2026-07-18 13:20:32]   finding 5: In non-responder slide 22RD (model P(response)=0.002), the most influential cells are melano cells, and the counterfactual gradient most often points to 'CD45RA (increase)' (11/25 of the top cells) as the marker shift that would most raise predicted response.
 [2026-07-18 13:20:32] STAGE 6 COMPLETE — 13.1s, 16 slides -> /mnt/nvme8tb/tme-infiltration/results/counterfactuals
 [2026-07-18 13:25:20] STAGE 7 COMPLETE — RESULTS.md, run_all.sh, make_results.py written; pipeline done
+[2026-07-18 13:34:51] CORRECTION 1 — marker overlap check
