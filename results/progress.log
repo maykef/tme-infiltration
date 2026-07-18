@@ -1319,3 +1319,26 @@ curl exit=0 size=44M
 [2026-07-18 11:33:15] STAGE 1 COMPLETE — data acquired (Jackson parquet + Moldoveanu extracted); STAGE 2 COMPLETE — data_schema.md written
 [2026-07-18 11:42:45] STAGE 3 START — graph construction (k=12, n_jobs=32)
 [2026-07-18 12:05:45] STAGE 3 COMPLETE — 100 jackson (33 markers) + 30 moldoveanu (35 markers) graphs, k=12
+[2026-07-18 12:15:33] STAGE 4 START — pretraining on Jackson (device=cuda)
+[2026-07-18 12:15:33]   100 graphs, 33 markers; train=85 val=15
+[2026-07-18 12:15:34]   epoch   1  train_mse=0.8614  val_mse=0.5771  best=0.5771@1
+[2026-07-18 12:15:35] STAGE 4 COMPLETE — best val_mse=0.4830@epoch2, 2.8s, saved /mnt/nvme8tb/tme-infiltration/checkpoints/pretrained_encoder.pt
+[2026-07-18 12:15:48] STAGE 4 START — pretraining on Jackson (device=cuda)
+[2026-07-18 12:15:48]   100 graphs, 33 markers; train=85 val=15
+[2026-07-18 12:15:49]   epoch   1  train_mse=0.8614  val_mse=0.5771  best=0.5771@1
+[2026-07-18 12:15:54]   epoch   5  train_mse=0.4890  val_mse=0.4132  best=0.3988@4
+[2026-07-18 12:15:59]   epoch  10  train_mse=0.4257  val_mse=0.3456  best=0.3349@9
+[2026-07-18 12:16:05]   epoch  15  train_mse=0.3720  val_mse=0.2815  best=0.2815@15
+[2026-07-18 12:16:10]   epoch  20  train_mse=0.3585  val_mse=0.2954  best=0.2762@19
+[2026-07-18 12:16:15]   epoch  25  train_mse=0.3699  val_mse=0.2716  best=0.2480@24
+[2026-07-18 12:16:21]   epoch  30  train_mse=0.3245  val_mse=0.2772  best=0.2480@24
+[2026-07-18 12:16:26]   epoch  35  train_mse=0.3371  val_mse=0.2559  best=0.2472@33
+[2026-07-18 12:16:32]   epoch  40  train_mse=0.3298  val_mse=0.2479  best=0.2472@33
+[2026-07-18 12:16:37]   epoch  45  train_mse=0.3181  val_mse=0.2583  best=0.2403@44
+[2026-07-18 12:16:42]   epoch  50  train_mse=0.3361  val_mse=0.2488  best=0.2403@44
+[2026-07-18 12:16:48]   epoch  55  train_mse=0.3090  val_mse=0.2283  best=0.2283@55
+[2026-07-18 12:16:53]   epoch  60  train_mse=0.3078  val_mse=0.2452  best=0.2283@55
+[2026-07-18 12:16:59]   epoch  65  train_mse=0.3037  val_mse=0.2574  best=0.2283@55
+[2026-07-18 12:17:04]   epoch  70  train_mse=0.2984  val_mse=0.2347  best=0.2283@55
+[2026-07-18 12:17:04]   early stop at epoch 70 (no val improvement for 15)
+[2026-07-18 12:17:04] STAGE 4 COMPLETE — best val_mse=0.2283@epoch55, 76.4s, saved /mnt/nvme8tb/tme-infiltration/checkpoints/pretrained_encoder.pt
