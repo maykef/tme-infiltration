@@ -1317,3 +1317,5 @@ curl exit=0 size=44M
 [2026-07-18 11:26:53] STAGE 1b — extracting Moldoveanu archive
 [2026-07-18 11:27:50] STAGE 1a START — Jackson/Fischer export (ExperimentHub download may take minutes)
 [2026-07-18 11:33:15] STAGE 1 COMPLETE — data acquired (Jackson parquet + Moldoveanu extracted); STAGE 2 COMPLETE — data_schema.md written
+[2026-07-18 11:42:45] STAGE 3 START — graph construction (k=12, n_jobs=32)
+[2026-07-18 12:05:45] STAGE 3 COMPLETE — 100 jackson (33 markers) + 30 moldoveanu (35 markers) graphs, k=12

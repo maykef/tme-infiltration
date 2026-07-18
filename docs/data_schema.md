@@ -33,10 +33,11 @@ arcsinh-transformed expression (cofactor-scaled). No additional transform applie
 **Channel selection for node features.** The 45 channels include 7 ruthenium counterstain
 channels (`Ru96, Ru98, Ru99, Ru100, Ru101, Ru102, Ru104`) and 2 DNA intercalators
 (`DNA1, DNA2`) — pure technical/segmentation channels with no antibody signal. `build_graphs.py`
-**drops these 9**, leaving **36 biological markers**:
+drops these 9, **plus 3 channels entirely NaN in the `exprs` assay** (`EpCAM, CTNNB, SOX9`,
+excluded by the package's expression computation), leaving **33 biological markers**:
 `H3, H3K27me3, KRT5, FN1, KRT19, KRT8_18, TWIST1, CD68, KRT14, SMA, VIM, c_Myc, HER2, CD3e,
-p_H3, SNAI2, ERa, PGR, p53, CD44, EpCAM, CD45, GATA3, CD20, CTNNB, CA9, CDH1, Ki67, EGFR,
-p_S6, SOX9, vWF, p_mTOR, KRT7, PanCK, cPARP_cCASP3`.
+p_H3, SNAI2, ERa, PGR, p53, CD44, CD45, GATA3, CD20, CA9, CDH1, Ki67, EGFR,
+p_S6, vWF, p_mTOR, KRT7, PanCK, cPARP_cCASP3`.
 
 No outcome label is used from this cohort — pretraining is self-supervised (masked marker).
 
