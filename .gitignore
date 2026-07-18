@@ -27,3 +27,6 @@ Thumbs.db
 # Editor
 .vscode/
 .idea/
+
+# Local agent memory — machine-specific, not shared (see Stage 0d)
+CLAUDE.local.md
